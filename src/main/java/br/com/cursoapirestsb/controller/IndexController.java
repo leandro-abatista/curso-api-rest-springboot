@@ -61,7 +61,28 @@ public class IndexController {
 		return new ResponseEntity(usuarios, HttpStatus.OK);
 		*/
 	
-	/*Serviço Restfull - Passando parâmetros*/
+	/*Serviço Restfull - relatório
+	@RequestMapping(method = RequestMethod.GET, value = "/{codigo}/relatoriopdf", produces = "application/json")
+	public ResponseEntity<Usuario> relatorio(@PathVariable (value = "codigo") Long codigo) {
+		
+		Optional<Usuario> usuario = usuarioRepository.findById(codigo);
+		
+		return new ResponseEntity(usuario.get(), HttpStatus.OK);
+	}
+	*/
+	
+	/*Serviço Restfull - passando dois ou mais parâmetros
+	@RequestMapping(method = RequestMethod.GET, value = "/{codigo}/codigovenda/{venda}", produces = "application/json")
+	public ResponseEntity<Usuario> relatorio(@PathVariable (value = "codigo") Long codigo,
+											 @PathVariable (value = "codigovenda") Long codigovenda) {
+		
+		Optional<Usuario> usuario = usuarioRepository.findById(codigo);
+		
+		return new ResponseEntity(usuario.get(), HttpStatus.OK);
+	}
+	*/
+	
+	/*Serviço Restfull - consultando pelo código do usuario*/
 	@RequestMapping(method = RequestMethod.GET, value = "/{codigo}", produces = "application/json")
 	public ResponseEntity<Usuario> init(@PathVariable (value = "codigo") Long codigo) {
 		
@@ -71,11 +92,12 @@ public class IndexController {
 	}
 	
 	@RequestMapping(method = RequestMethod.GET, value = "/", produces = "application/json")
-	public ResponseEntity<List<Usuario>> listaUsers(){
+	public ResponseEntity<List<Usuario>> listaUsers() {
 		
 		List<Usuario> list = (List<Usuario>) usuarioRepository.findAll();
 		
 		return new ResponseEntity<List<Usuario>>(list, HttpStatus.OK);
 	}
+	
 	
 }

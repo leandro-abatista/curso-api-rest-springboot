@@ -23,6 +23,18 @@ public class Usuario implements Serializable {
 	@Column(length = 50)
 	private String senha;
 
+	@Column(length = 120)
+	private String nome;
+
+	@Column(length = 15)
+	private String cpf;
+
+	@Column(length = 17)
+	private String telefone;
+
+	@Column(length = 120)
+	private String email;
+
 	public long getCodigo() {
 		return codigo;
 	}
@@ -45,6 +57,38 @@ public class Usuario implements Serializable {
 
 	public void setSenha(String senha) {
 		this.senha = senha;
+	}
+
+	public String getNome() {
+		return nome;
+	}
+
+	public void setNome(String nome) {
+		this.nome = nome;
+	}
+
+	public String getCpf() {
+		return cpf;
+	}
+
+	public void setCpf(String cpf) {
+		this.cpf = cpf;
+	}
+
+	public String getTelefone() {
+		return telefone;
+	}
+
+	public void setTelefone(String telefone) {
+		this.telefone = telefone;
+	}
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
 	}
 
 	@Override
