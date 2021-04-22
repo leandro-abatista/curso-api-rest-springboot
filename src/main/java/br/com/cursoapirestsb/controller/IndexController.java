@@ -1,22 +1,26 @@
 package br.com.cursoapirestsb.controller;
 
-import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Repository;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.fasterxml.jackson.databind.ser.std.StdKeySerializers.Default;
-
 import br.com.cursoapirestsb.model.Usuario;
+import br.com.cursoapirestsb.repository.UsuarioRepository;
 
 @RestController/*Arquitetura Restfull*/
 @RequestMapping(value = "/usuario")/*isso aparece depois da porta 8080*/
 public class IndexController {
+	
+	@Autowired/*Injeção de dependência CDI*/
+	private UsuarioRepository usuarioRepository;
 	
 	/*Serviço Restfull
 	@RequestMapping(method = RequestMethod.GET, value = "/", produces = "application/json")
@@ -36,7 +40,7 @@ public class IndexController {
 	}
 	*/
 	
-	/*Serviço Restfull - Passando parâmetros*/
+	/*Serviço Restfull - Passando parâmetros
 	@RequestMapping(method = RequestMethod.GET, value = "/", produces = "application/json")
 	public ResponseEntity init() {
 		
@@ -55,5 +59,23 @@ public class IndexController {
 		usuarios.add(usuario1);
 		
 		return new ResponseEntity(usuarios, HttpStatus.OK);
+		*/
+	
+	/*Serviço Restfull - Passando parâmetros*/
+	@RequestMapping(method = RequestMethod.GET, value = "/{codigo}", produces = "application/json")
+	public ResponseEntity<Usuario> init(@PathVariable (value = "codigo") Long codigo) {
+		
+		Optional<Usuario> usuario = usuarioRepository.findById(codigo);
+		
+		return new ResponseEntity(usuario.get(), HttpStatus.OK);
 	}
+	
+	@RequestMapping(method = RequestMethod.GET, value = "/", produces = "application/json")
+	public ResponseEntity<List<Usuario>> listaUsers(){
+		
+		List<Usuario> list = (List<Usuario>) usuarioRepository.findAll();
+		
+		return new ResponseEntity<List<Usuario>>(list, HttpStatus.OK);
+	}
+	
 }
