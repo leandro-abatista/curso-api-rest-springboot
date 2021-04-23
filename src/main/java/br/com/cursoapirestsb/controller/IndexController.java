@@ -134,9 +134,24 @@ public class IndexController {
 					record.setTelefone(usuario.getTelefone());
 					record.setEmail(usuario.getEmail());
 					
-					Usuario user = usuarioRepository.save(record);
+					Usuario user = usuarioRepository.save(record);/*Esse save salva e atualiza*/
+					
 					return ResponseEntity.ok().body(user);
+					
 				}).orElse(ResponseEntity.notFound().build());
+	}
+	
+	/**
+	 * Atualizando um usuário
+	 * @param codigo
+	 * @return
+	 */
+	@RequestMapping(method = RequestMethod.PUT, value = "/", produces = "application/json")
+	public ResponseEntity<Usuario> atualizarUser(@RequestBody Usuario usuario){
+		
+		Usuario usuarioAtualizar = usuarioRepository.save(usuario);
+		
+		return new ResponseEntity<Usuario>(usuarioAtualizar, HttpStatus.OK);
 	}
 	
 	/**
@@ -144,7 +159,7 @@ public class IndexController {
 	 * @param codigo
 	 * @return
 	 */
-	@RequestMapping(method = RequestMethod.DELETE, value = "/{codigo}", produces = "application/json")
+	@RequestMapping(method = RequestMethod.DELETE, value = "/{codigo}", produces = "application/text")
 	public ResponseEntity excluirUsuario(@PathVariable ("codigo") Long codigo){
 		
 		return usuarioRepository.findById(codigo)
@@ -163,7 +178,7 @@ public class IndexController {
 	 * @param codigo
 	 * @return
 	 */
-	@RequestMapping(method = RequestMethod.DELETE, value = "/excluir/{codigo}", produces = "application/json")
+	@RequestMapping(method = RequestMethod.DELETE, value = "/excluir/{codigo}", produces = "application/text")
 	public ResponseEntity excluirUser(@PathVariable ("codigo") Long codigo){
 		
 		usuarioRepository.deleteById(codigo);
