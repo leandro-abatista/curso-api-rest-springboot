@@ -155,6 +155,11 @@ public class UsuarioController {
 	@RequestMapping(method = RequestMethod.PUT, value = "/", produces = "application/json")
 	public ResponseEntity<Usuario> atualizarUser(@RequestBody Usuario usuario){
 		
+		for (int posicao = 0; posicao < usuario.getTelefones().size(); posicao++) {//varrendo a lista de telefones
+			usuario.getTelefones().get(posicao)//pega os telefones naquela posição e depois seta naquele usuário
+			.setUsuario(usuario);//amarrando os telefones ao usuário
+		}
+		
 		Usuario usuarioAtualizar = usuarioRepository.save(usuario);
 		
 		return new ResponseEntity<Usuario>(usuarioAtualizar, HttpStatus.OK);
