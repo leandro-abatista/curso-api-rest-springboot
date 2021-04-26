@@ -1,12 +1,16 @@
 package br.com.cursoapirestsb.model;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 
 @Entity
 public class Usuario implements Serializable {
@@ -34,6 +38,10 @@ public class Usuario implements Serializable {
 
 	@Column(length = 120)
 	private String email;
+	
+	@OneToMany(mappedBy = "usuario", orphanRemoval = true, cascade = CascadeType.ALL)//um usuário possui muitos telefones
+	private List<Telefone> telefones = new ArrayList<>();
+	
 
 	public long getCodigo() {
 		return codigo;
