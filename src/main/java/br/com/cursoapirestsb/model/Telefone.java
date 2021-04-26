@@ -1,8 +1,9 @@
 package br.com.cursoapirestsb.model;
 
+import java.io.Serializable;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
-
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -13,8 +14,10 @@ import org.hibernate.annotations.ForeignKey;
 
 
 @Entity
-public class Telefone {
+public class Telefone implements Serializable {
 	
+	private static final long serialVersionUID = 1L;
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long codigo;
@@ -25,7 +28,9 @@ public class Telefone {
 	@Column(length = 17, nullable = false)
 	private String numero;
 	
+	
 	@SuppressWarnings("deprecation")
+	@com.fasterxml.jackson.annotation.JsonIgnore
 	@ForeignKey(name = "codigo_usuario")
 	@ManyToOne//muitos telefones para um usuário/muitos para um
 	private Usuario usuario;

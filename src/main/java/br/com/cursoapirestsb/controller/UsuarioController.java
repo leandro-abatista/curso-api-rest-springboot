@@ -18,7 +18,7 @@ import br.com.cursoapirestsb.repository.UsuarioRepository;
 
 @RestController/*Arquitetura Restfull*/
 @RequestMapping(value = "/usuario")/*isso aparece depois da porta 8080*/
-public class IndexController {
+public class UsuarioController {
 	
 	@Autowired/*Injeção de dependência CDI*/
 	private UsuarioRepository usuarioRepository;

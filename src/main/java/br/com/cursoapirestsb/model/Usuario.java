@@ -38,10 +38,10 @@ public class Usuario implements Serializable {
 
 	@Column(length = 120)
 	private String email;
-	
-	@OneToMany(mappedBy = "usuario", orphanRemoval = true, cascade = CascadeType.ALL)//um usuário possui muitos telefones
+
+	@OneToMany(mappedBy = "usuario", orphanRemoval = true, cascade = CascadeType.ALL) // um usuário possui muitos
+																						// telefones
 	private List<Telefone> telefones = new ArrayList<>();
-	
 
 	public long getCodigo() {
 		return codigo;
@@ -97,6 +97,14 @@ public class Usuario implements Serializable {
 
 	public void setEmail(String email) {
 		this.email = email;
+	}
+
+	public List<Telefone> getTelefones() {
+		return telefones;
+	}
+
+	public void setTelefones(List<Telefone> telefones) {
+		this.telefones = telefones;
 	}
 
 	@Override
