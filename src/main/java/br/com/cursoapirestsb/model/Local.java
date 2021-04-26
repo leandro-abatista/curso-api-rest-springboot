@@ -7,33 +7,27 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.ManyToOne;
-
-import org.hibernate.annotations.ForeignKey;
-
-
+import javax.persistence.OneToOne;
 
 @Entity
-public class Telefone implements Serializable {
-	
+public class Local implements Serializable {
+
 	private static final long serialVersionUID = 1L;
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long codigo;
+
+	@Column(nullable = false, length = 100)
+	private String descricao;
 	
-	@Column(length = 30, nullable = false)
+	@Column(nullable = false, length = 50)
 	private String tipo;
+
+	private Integer capacidade;
 	
-	@Column(length = 17, nullable = false)
-	private String numero;
-	
-	
-	@SuppressWarnings("deprecation")
-	@com.fasterxml.jackson.annotation.JsonIgnore
-	@ForeignKey(name = "codigo_usuario")
-	@ManyToOne(optional = false)//muitos telefones para um usuário/muitos para um
-	private Usuario usuario;
+	@OneToOne//uma paletra para um local
+	private Local local;
 
 	public Long getCodigo() {
 		return codigo;
@@ -41,6 +35,14 @@ public class Telefone implements Serializable {
 
 	public void setCodigo(Long codigo) {
 		this.codigo = codigo;
+	}
+
+	public String getDescricao() {
+		return descricao;
+	}
+
+	public void setDescricao(String descricao) {
+		this.descricao = descricao;
 	}
 
 	public String getTipo() {
@@ -51,20 +53,20 @@ public class Telefone implements Serializable {
 		this.tipo = tipo;
 	}
 
-	public String getNumero() {
-		return numero;
+	public Integer getCapacidade() {
+		return capacidade;
 	}
 
-	public void setNumero(String numero) {
-		this.numero = numero;
+	public void setCapacidade(Integer capacidade) {
+		this.capacidade = capacidade;
+	}
+	
+	public Local getLocal() {
+		return local;
 	}
 
-	public Usuario getUsuario() {
-		return usuario;
-	}
-
-	public void setUsuario(Usuario usuario) {
-		this.usuario = usuario;
+	public void setLocal(Local local) {
+		this.local = local;
 	}
 
 	@Override
@@ -83,7 +85,7 @@ public class Telefone implements Serializable {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		Telefone other = (Telefone) obj;
+		Local other = (Local) obj;
 		if (codigo == null) {
 			if (other.codigo != null)
 				return false;
@@ -91,6 +93,5 @@ public class Telefone implements Serializable {
 			return false;
 		return true;
 	}
-	
-	
+
 }

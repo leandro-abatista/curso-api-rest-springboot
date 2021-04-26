@@ -1,5 +1,6 @@
 package br.com.cursoapirestsb.controller;
 
+import java.util.Iterator;
 import java.util.List;
 import java.util.Optional;
 
@@ -111,6 +112,11 @@ public class UsuarioController {
 	 */
 	@RequestMapping(method = RequestMethod.POST, value = "/", produces = "application/json")
 	public ResponseEntity<Usuario> cadastrar(@RequestBody Usuario usuario){
+		
+		for (int posicao = 0; posicao < usuario.getTelefones().size(); posicao++) {//varrendo a lista de telefones
+			usuario.getTelefones().get(posicao)//pega os telefones naquela posição e depois seta naquele usuário
+			.setUsuario(usuario);//amarrando os telefones ao usuário
+		}
 		
 		Usuario usuarioCadastrar = usuarioRepository.save(usuario);
 		
